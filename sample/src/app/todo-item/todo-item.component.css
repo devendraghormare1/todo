@@ -1,0 +1,28 @@
+.todo-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .todo-item-details {
+    flex: 1;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  
+  .completed {
+    text-decoration: line-through;
+  }
+  
+  .todo-item button {
+    background-color: #ff4136;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .todo-item button:hover {
+    background-color: #d30000;
+  }
+  

@@ -1,0 +1,19 @@
+<div class="todo-list-container">
+  <h2>Todo List</h2>
+  <form class="todo-form" (submit)="addTodo()">
+    <input type="text" [(ngModel)]="newTodoTitle" [ngModelOptions]="{standalone: true}" placeholder="Enter new todo" /> <br>
+
+    <input type="text" [(ngModel)]="newTodoDetails" [ngModelOptions]="{standalone: true}" placeholder="Enter details" /> 
+    <button type="submit">Add</button>
+  </form>
+  <ul>
+    <li *ngFor="let todo of todos; let i = index">
+      <div class="todo-item" [ngClass]="{'completed': todo.completed}">
+        <span>{{ i + 1 }}. {{ todo.title }}</span>
+        <p class="todo-item-details">{{ todo.details }}</p>
+        <input type="checkbox" [(ngModel)]="todo.completed" [ngModelOptions]="{standalone: true}" (change)="updateTodoStatus(todo)" />
+        <button (click)="deleteTodo(todo.id)">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,6 @@
+<div class="todo-item" [ngClass]="{'completed': todo.completed}">
+    <span>{{ todo.title }}</span>
+    <p class="todo-item-details">{{ todo.details }}</p>
+    <input type="checkbox" [(ngModel)]="todo.completed" [ngModelOptions]="{standalone: true}" (change)="updateTodoStatus(todo)" />
+    <button (click)="deleteTodo(todo.id)">Delete</button>
+  </div>
