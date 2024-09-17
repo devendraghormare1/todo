@@ -21,6 +21,4 @@ export class TodoItemComponent {
       .subscribe();
   }
 
-  
-
 }

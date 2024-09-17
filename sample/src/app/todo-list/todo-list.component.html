@@ -1,18 +1,29 @@
-<div class="todo-list-container">
+<div class="container todo-list-container border mt-5">
   <h2>Todo List</h2>
   <form class="todo-form" (submit)="addTodo()">
-    <input type="text" [(ngModel)]="newTodoTitle" [ngModelOptions]="{standalone: true}" placeholder="Enter new todo" /> <br>
-
-    <input type="text" [(ngModel)]="newTodoDetails" [ngModelOptions]="{standalone: true}" placeholder="Enter details" /> 
-    <button type="submit">Add</button>
+    <div class="d-flex">
+      <input class="form-control me-2" type="text" [(ngModel)]="newTodoTitle" name="newTodoTitle" placeholder="Enter new todo" />
+      <input class="form-control me-2" type="text" [(ngModel)]="newTodoDetails" name="newTodoDetails" placeholder="Enter details" />
+      <button class="btn btn-primary" type="submit">Add</button>
+    </div>
   </form>
-  <ul>
-    <li *ngFor="let todo of todos; let i = index">
-      <div class="todo-item" [ngClass]="{'completed': todo.completed}">
-        <span>{{ i + 1 }}. {{ todo.title }}</span>
-        <p class="todo-item-details">{{ todo.details }}</p>
-        <input type="checkbox" [(ngModel)]="todo.completed" [ngModelOptions]="{standalone: true}" (change)="updateTodoStatus(todo)" />
-        <button (click)="deleteTodo(todo.id)">Delete</button>
+  <ul class="list-group mt-3">
+    <li class="list-group-item mb-3" *ngFor="let todo of todos; let i = index">
+      <div *ngIf="!todo.editMode" class="todo-item d-flex flex-column align-items-start" [ngClass]="{'completed': todo.completed}">
+        <strong>{{ i + 1 }}. {{ todo.title }}</strong>
+        <p class="todo-item-details">{{ todo.details }}</p> 
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [(ngModel)]="todo.completed" name="todoCheckbox{{i}}" (change)="updateTodoStatus(todo)" />
+          <label class="form-check-label" for="todoCheckbox{{i}}">Completed</label>
+        </div>
+        <button class="btn btn-primary mt-2" (click)="toggleEditMode(todo)">Edit</button>
+        <button class="btn btn-danger mt-2" (click)="deleteTodo(todo.id)">Delete</button>
+      </div>
+      <div *ngIf="todo.editMode" class="todo-item d-flex flex-column align-items-start">
+        <input class="form-control mb-2" type="text" [(ngModel)]="todo.editedTitle" name="editedTitle{{i}}" placeholder="Edit todo title" />
+        <input class="form-control mb-2" type="text" [(ngModel)]="todo.editedDetails" name="editedDetails{{i}}" placeholder="Edit details" />
+        <button class="btn btn-success me-2" (click)="saveEditedTodo(todo)">Save</button>
+        <button class="btn btn-secondary" (click)="cancelEdit(todo)">Cancel</button>
       </div>
     </li>
   </ul>
